@@ -22,4 +22,5 @@ Clone the repository using Git:
 ```sh
 git clone https://github.com/tsaebst/Small-Tasks-Solved.git
 cd Small-Tasks-Solved
+```
 Developed by tsaebst. For questions or suggestions, open an issue in the repository.
