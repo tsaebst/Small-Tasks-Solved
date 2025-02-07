@@ -1,0 +1,82 @@
+
+import random
+print("Let's start the game! But make sure you`ve read the rules:")
+print('''I am thinking of a {}-digit number with no repeated digits.
+Try to guess what it is. Here are some clues:
+When I say: That means:
+Pico One digit is correct but in the wrong position.
+Fermi One digit is correct and in the right position. Bagels No digit is correct. 
+For example, if the secret number was 248 and your guess was 843, the clues would be Fermi Pico.
+       ''')
+
+while True:
+
+
+    def create_secnum():
+        char = list(range(10))
+        random.shuffle(char)
+        secret_num = ''
+        i = 1
+        while i <= 3:
+            secret_num = secret_num + str(char[i])
+            i = i + 1
+        return secret_num
+
+
+    def easter_eggs(int_num, secret_num):
+        if int_num == secret_num:
+            return 'You got it!'
+        hints = []
+        for i in range(3):
+            if int_num[i] == secret_num[i]:
+                hints.append('Fermi')
+            elif int_num[i] in secret_num:
+                hints.append('Pico')
+        if len(hints) == 0:
+            return 'Bagels'
+
+        return ' '.join(hints)
+
+
+    def only_num(num):
+        if num == '':
+            return False
+
+        for digit_num in num:
+            digits = "0 1 2 3 4 5 6 7 8 9".split()
+            if digit_num not in digits:
+                return False
+
+        return True
+
+
+    def start():
+
+        while True:
+            secret_num = create_secnum()
+            print('I have thought of a number. You have 20 guesses to get it.')
+
+            tries = 0
+            while tries < 20:
+                int_num = ''
+                while len(int_num) != 3 or not only_num(int_num):
+                    int_num = input(f'Your guess no.{tries + 1}: ')
+
+                clues = easter_eggs(int_num, secret_num)
+                print(clues)
+
+                tries = tries + 1
+
+                if int_num == secret_num:
+                    break
+            else:
+                print(f'You ran out of guesses. The number is: {secret_num}')
+
+            repeat = input('Do you want to play again? (yes(1) or no(2)): ')
+            if not repeat.startswith('1'):
+                break
+
+
+    start()
+if __name__ == '__main__':
+    main()
